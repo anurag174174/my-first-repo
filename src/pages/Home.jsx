@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEOHead from "../components/SEOHead";
 import Sidebar from "../components/Sidebar";
-import { useEffect } from "react";
+
 const POSTS_PER_PAGE = 5;
 
 function Home() {
@@ -14,37 +14,7 @@ function Home() {
   const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
   const currentPosts = sortedPosts.slice(indexOfFirstPost, indexOfLastPost);
   const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-
-    script.innerHTML = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is NewsOfCity?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "NewsOfCity provides latest updates, guides, and helpful information about government services and online processes."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is NewsOfCity free to use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, all content on NewsOfCity is completely free to access."
-          }
-        }
-      ]
-    });
-
-    document.head.appendChild(script);
-
-    return () => document.head.removeChild(script);
-  }, []);
+  
   return (
     <>
       <SEOHead
