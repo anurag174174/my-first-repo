@@ -3,6 +3,7 @@ import getPosts from "../utils/getPosts";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import SEOHead from "../components/SEOHead";
+import Sidebar from "../components/Sidebar";
 
 function Article() {
   const { slug } = useParams();
@@ -56,62 +57,69 @@ function Article() {
         faqSchema={faqSchema}
       />
 
-      {/* ARTICLE */}
-      <article className="article-page" itemScope itemType="https://schema.org/NewsArticle">
-        <header className="article-header">
-          <h1 className="article-title" itemProp="headline">
-            {post.title}
-          </h1>
+      {/* Same layout as Home: main + sticky sidebar */}
+      <div className="home-page">
+        <div className="home-main">
+          {/* ARTICLE */}
+          <article className="article-page" itemScope itemType="https://schema.org/NewsArticle">
+            <header className="article-header">
+              <h1 className="article-title" itemProp="headline">
+                {post.title}
+              </h1>
 
-          <div className="article-meta">
-            <time dateTime={post.date} itemProp="datePublished">
-              {new Date(post.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
+              <div className="article-meta">
+                <time dateTime={post.date} itemProp="datePublished">
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
 
-            <Link to={`/category/${post.category}`} className="article-category">
-              {post.category}
-            </Link>
-          </div>
-        </header>
+                <Link to={`/category/${post.category}`} className="article-category">
+                  {post.category}
+                </Link>
+              </div>
+            </header>
 
-        {/* FEATURED IMAGE */}
-        {post.image && (
-          <div className="article-image">
-            <img
-              src={post.image}
-              alt={post.title}
-              width="800"
-              height="450"
-              itemProp="image"
-            />
-          </div>
-        )}
+            {/* FEATURED IMAGE */}
+            {post.image && (
+              <div className="article-image">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  width="800"
+                  height="450"
+                  itemProp="image"
+                />
+              </div>
+            )}
 
-        {/* CONTENT */}
-        <div className="article-body prose" itemProp="articleBody">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
-          </ReactMarkdown>
+            {/* CONTENT */}
+            <div className="article-body prose" itemProp="articleBody">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {post.content}
+              </ReactMarkdown>
+            </div>
+
+            {/* FAQ SECTION (VISIBLE ON PAGE — VERY IMPORTANT FOR GOOGLE) */}
+            {post.faq && post.faq.length > 0 && (
+              <section className="faq-section">
+                <h2>Frequently Asked Questions</h2>
+
+                {post.faq.map((item, index) => (
+                  <div key={index} className="faq-item">
+                    <h3>{item.question}</h3>
+                    <p>{item.answer}</p>
+                  </div>
+                ))}
+              </section>
+            )}
+          </article>
         </div>
 
-        {/* FAQ SECTION (VISIBLE ON PAGE — VERY IMPORTANT FOR GOOGLE) */}
-        {post.faq && post.faq.length > 0 && (
-          <section className="faq-section">
-            <h2>Frequently Asked Questions</h2>
-
-            {post.faq.map((item, index) => (
-              <div key={index} className="faq-item">
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </div>
-            ))}
-          </section>
-        )}
-      </article>
+        <Sidebar />
+      </div>
     </>
   );
 }
