@@ -11,12 +11,16 @@ function Footer() {
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo">
-              News of City
+            <Link to="/" className=" nav-logo" >
+            <img
+              src="./src/assets/logo.webp"
+              alt="News of City"
+              className="nav-logo-img"
+            />
             </Link>
             <p className="footer-tagline">
-              Your trusted source for local news, development, and community updates.
-            </p>
+  News of City is your trusted source for local news, city updates, development stories, and community coverage that keeps you informed daily.
+</p>
           </div>
 
           <nav className="footer-nav" aria-label="Footer navigation">
@@ -25,20 +29,22 @@ function Footer() {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              {categories.map((cat) => (
-                <li key={cat}>
-                  <Link to={`/category/${cat}`}>{cat}</Link>
-                </li>
-              ))}
+              {categories.slice(0, 5).map((cat) => (
+  <li key={cat}>
+    <Link to={`/category/${cat}`}>{cat}</Link>
+  </li>
+))}
             </ul>
           </nav>
 
           <div className="footer-legal">
             <h3 className="footer-heading">Legal</h3>
             <ul>
-              <li><a href="#privacy">Privacy Policy</a></li>
-              <li><a href="#terms">Terms of Use</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
+              <li><Link to="/terms">Terms & Conditions</Link></li>
+              <li><Link to="/disclaimer">Disclaimer</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
         </div>

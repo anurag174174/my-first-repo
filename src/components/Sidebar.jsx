@@ -14,7 +14,7 @@ function Sidebar() {
             <Link to={`/article/${post.slug}`} className="sidebar-link">
               {post.image && (
                 <span className="sidebar-thumb">
-                  <img src={post.image} alt="" loading="lazy" />
+                  <img src={post.image} alt=""  />
                 </span>
               )}
               <span className="sidebar-text">{post.title}</span>

@@ -30,7 +30,11 @@ function Layout({ children }) {
       <header className="site-header">
         <nav className="nav" aria-label="Main navigation">
           <Link to="/" className="nav-logo" onClick={closeAll}>
-            News of City
+            <img
+              src="./src/assets/logo.webp"
+              alt="News of City"
+              className="nav-logo-img"
+            />
           </Link>
 
           <button
@@ -49,6 +53,12 @@ function Layout({ children }) {
           <ul id="nav-menu" className="nav-links" data-open={mobileMenuOpen}>
             <li>
               <Link to="/" onClick={closeAll}>Home</Link>
+            </li>
+            <li>
+              <Link to="/about" onClick={closeAll}>About</Link>
+            </li>
+            <li>
+              <Link to="/contact" onClick={closeAll}>Contact</Link>
             </li>
             <li className="nav-dropdown-wrap" ref={dropdownRef} data-open={categoryOpen}>
               <button

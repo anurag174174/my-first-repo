@@ -44,7 +44,7 @@ function Home() {
                       <img
                         src={post.image}
                         alt={post.title}
-                        loading="lazy"
+                        // loading="lazy"
                         width="400"
                         height="220"
                       />
