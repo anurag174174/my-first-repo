@@ -13,8 +13,8 @@ function Footer() {
           <div className="footer-brand">
             <Link to="/" className=" nav-logo" >
             <img
-              src="./src/assets/logo.webp"
-              alt="News of City"
+              src="./src/assets/logos.png"
+              alt="News of City Logo"
               className="nav-logo-img"
             />
             </Link>
