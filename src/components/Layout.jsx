@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import getPosts from "../utils/getPosts";
 import Footer from "./Footer";
+import logo from "../assets/logos.png"
 
 function Layout({ children }) {
   const posts = getPosts();
@@ -31,7 +32,7 @@ function Layout({ children }) {
         <nav className="nav" aria-label="Main navigation">
           <Link to="/" className="nav-logo" onClick={closeAll}>
             <img
-              src="./src/assets/logos.png"
+              src={logo}
               alt="News of City Logo"
               className="nav-logo-img"
             />

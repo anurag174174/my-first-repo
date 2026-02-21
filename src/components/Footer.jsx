@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import getPosts from "../utils/getPosts";
-
+import logo from "../assets/logos.png"
 function Footer() {
   const categories = [...new Set(getPosts().map((p) => p.category))];
 
@@ -13,7 +13,7 @@ function Footer() {
           <div className="footer-brand">
             <Link to="/" className=" nav-logo" >
             <img
-              src="./src/assets/logos.png"
+              src={logo}
               alt="News of City Logo"
               className="nav-logo-img"
             />
