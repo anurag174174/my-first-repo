@@ -32,7 +32,7 @@ Organizers expect more than **50,000 visitors** over the next three days.
 
 According to the city mayor:
 
-> "This festival reflects the spirit, unity, and cultural richness of our city."
+>  "This festival reflects the spirit, unity, and cultural richness of our city."
 
 Security arrangements have been strengthened, and additional public transport services have been deployed.
 

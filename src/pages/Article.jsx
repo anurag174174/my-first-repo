@@ -8,6 +8,7 @@ function Article() {
   const { slug } = useParams();
   const post = getPosts().find((p) => p.slug === slug);
 
+  // HANDLE NOT FOUND FIRST (IMPORTANT)
   if (!post) {
     return (
       <>
@@ -20,38 +21,96 @@ function Article() {
     );
   }
 
+  // DYNAMIC CANONICAL URL
+  const canonicalUrl = `https://newsofcity.com/${post.slug}`;
+
+  // DYNAMIC DESCRIPTION
   const description =
-    (post.excerpt || post.content || "").replace(/^#+\s*/gm, "").substring(0, 160) + "…";
+    (post.excerpt || post.content || "")
+      .replace(/^#+\s*/gm, "")
+      .substring(0, 160) + "…";
+
+  // DYNAMIC FAQ SCHEMA GENERATION
+  const faqSchema = post.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: post.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
 
   return (
     <>
-      <SEOHead title={post.title} description={description} />
+      {/* SEO HEAD */}
+      <SEOHead
+        title={post.title}
+        description={description}
+        canonical={canonicalUrl}
+        faqSchema={faqSchema}
+      />
+
+      {/* ARTICLE */}
       <article className="article-page" itemScope itemType="https://schema.org/NewsArticle">
         <header className="article-header">
           <h1 className="article-title" itemProp="headline">
             {post.title}
           </h1>
+
           <div className="article-meta">
             <time dateTime={post.date} itemProp="datePublished">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
-                day: "numeric"
+                day: "numeric",
               })}
             </time>
+
             <Link to={`/category/${post.category}`} className="article-category">
               {post.category}
             </Link>
           </div>
         </header>
+
+        {/* FEATURED IMAGE */}
         {post.image && (
           <div className="article-image">
-            <img src={post.image} alt={post.title} width="800" height="450" />
+            <img
+              src={post.image}
+              alt={post.title}
+              width="800"
+              height="450"
+              itemProp="image"
+            />
           </div>
         )}
-        <div className="article-body prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+
+        {/* CONTENT */}
+        <div className="article-body prose" itemProp="articleBody">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {post.content}
+          </ReactMarkdown>
         </div>
+
+        {/* FAQ SECTION (VISIBLE ON PAGE — VERY IMPORTANT FOR GOOGLE) */}
+        {post.faq && post.faq.length > 0 && (
+          <section className="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            {post.faq.map((item, index) => (
+              <div key={index} className="faq-item">
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </div>
+            ))}
+          </section>
+        )}
       </article>
     </>
   );
