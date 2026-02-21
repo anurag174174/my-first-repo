@@ -31,8 +31,8 @@ function Layout({ children }) {
         <nav className="nav" aria-label="Main navigation">
           <Link to="/" className="nav-logo" onClick={closeAll}>
             <img
-              src="./src/assets/logo.png"
-              alt="News of City"
+              src="./src/assets/logos.png"
+              alt="News of City Logo"
               className="nav-logo-img"
             />
           </Link>
