@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SEOHead from "../components/SEOHead";
 import Sidebar from "../components/Sidebar";
-
+import { useEffect } from "react";
 const POSTS_PER_PAGE = 5;
 
 function Home() {
